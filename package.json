@@ -1,15 +1,25 @@
 {
   "name": "backend-projeto2",
   "version": "1.0.0",
+  "description": "Sistema de venda de ingressos",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "jest"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "express": "^4.21.2"
+    "bcryptjs": "^2.4.3",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2",
+    "jsonwebtoken": "^9.0.2",
+    "sequelize": "^6.35.1",
+    "sqlite3": "^5.1.6",
+    "express-session": "^1.17.3",
+    "connect-flash": "^0.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "jest": "^29.7.0"
   }
 }
