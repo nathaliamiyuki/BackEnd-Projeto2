@@ -1,0 +1,28 @@
+<div id="ticketTypeModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Gerenciar Tipo de Ingresso</h2>
+        
+        <form id="ticketTypeForm" action="/ticket-types" method="POST">
+            <input type="hidden" id="ticketTypeId" name="id">
+            
+            <div class="form-group">
+                <label for="ticketTypeName">Nome:</label>
+                <input type="text" id="ticketTypeName" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="ticketTypePrice">Preço:</label>
+                <input type="number" id="ticketTypePrice" name="price" step="0.01" min="0" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="ticketTypeQuantity">Quantidade Disponível:</label>
+                <input type="number" id="ticketTypeQuantity" name="quantity" min="0" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+        </form>
+    </div>
+</div>

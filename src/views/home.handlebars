@@ -1,0 +1,25 @@
+<div class="home-container">
+    <h1>Bem-vindo ao Sistema de Venda de Ingressos</h1>
+    
+    <div class="actions-grid">
+        <div class="action-card">
+            <h3>Comprar Ingressos</h3>
+            <p>Explore os diferentes tipos de ingressos disponíveis para compra.</p>
+            <a href="/ticket-types" class="btn btn-primary">Ver Ingressos</a>
+        </div>
+        
+        <div class="action-card">
+            <h3>Meus Ingressos</h3>
+            <p>Visualize todos os ingressos que você já comprou.</p>
+            <a href="/tickets" class="btn btn-secondary">Ver Meus Ingressos</a>
+        </div>
+        
+        {{#if user.isAdmin}}
+        <div class="action-card">
+            <h3>Gerenciar Ingressos</h3>
+            <p>Adicione, edite ou remova tipos de ingressos.</p>
+            <a href="/ticket-types" class="btn btn-primary">Gerenciar</a>
+        </div>
+        {{/if}}
+    </div>
+</div>

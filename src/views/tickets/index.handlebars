@@ -1,0 +1,17 @@
+<h2>Meus Ingressos</h2>
+
+{{#if tickets.length}}
+    <div class="tickets-grid">
+        {{#each tickets}}
+            <div class="ticket-card">
+                <h3>{{TicketType.name}}</h3>
+                <p>Quantidade: {{quantity}}</p>
+                <p>Valor Total: R$ {{totalPrice}}</p>
+                <p>Data da Compra: {{formatDate purchaseDate}}</p>
+                <a href="/tickets/{{id}}" class="btn btn-secondary">Ver Detalhes</a>
+            </div>
+        {{/each}}
+    </div>
+{{else}}
+    <p>Você ainda não possui ingressos.</p>
+{{/if}}

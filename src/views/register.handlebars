@@ -1,0 +1,19 @@
+<div class="auth-container">
+    <h2>Registro</h2>
+    <form action="/auth/register" method="POST">
+        <div class="form-group">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Registrar</button>
+    </form>
+    <p>Já tem uma conta? <a href="/login">Faça login</a></p>
+</div>

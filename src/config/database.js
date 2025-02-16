@@ -1,57 +1,33 @@
-const express = require('express');
-const { engine } = require('express-handlebars');
-const session = require('express-session');
-const flash = require('connect-flash');
+const { Sequelize } = require('sequelize');
 const path = require('path');
-const routes = require('./routes');
-const sequelize = require('./config/database');
+const fs = require('fs');
 
-const app = express();
+// Define o caminho do banco de dados usando variável de ambiente
+const dbPath = path.join(__dirname, '..', '..', process.env.DB_PATH || 'data/database.sqlite');
 
-// Configuração do Handlebars
-app.engine('handlebars', engine({
-    helpers: {
-        formatDate: (date) => {
-            return new Date(date).toLocaleDateString('pt-BR');
-        }
+// Garante que o diretório existe
+const dbDir = path.dirname(dbPath);
+if (!fs.existsSync(dbDir)) {
+    fs.mkdirSync(dbDir, { recursive: true });
+}
+
+// Remove arquivo corrompido do banco de dados se existir
+try {
+    if (fs.existsSync(dbPath)) {
+        fs.unlinkSync(dbPath);
     }
-}));
-app.set('view engine', 'handlebars');
-app.set('views', path.join(__dirname, 'views'));
+} catch (error) {
+    console.error('Error removing corrupted database:', error);
+}
 
-// Middlewares
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(session({
-    secret: process.env.SESSION_SECRET || 'your-secret-key',
-    resave: false,
-    saveUninitialized: false
-}));
-
-app.use(flash());
-
-// Middleware para variáveis globais
-app.use((req, res, next) => {
-    res.locals.user = req.session.user;
-    res.locals.messages = {
-        error: req.flash('error'),
-        success: req.flash('success')
-    };
-    next();
+const sequelize = new Sequelize({
+    dialect: 'sqlite',
+    storage: dbPath,
+    logging: false,
+    define: {
+        timestamps: true,
+        underscored: true,
+    }
 });
 
-// Rotas
-app.use(routes);
-
-// Sincronização do banco de dados e início do servidor
-const PORT = process.env.PORT || 3000;
-
-sequelize.sync().then(() => {
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-    });
-}).catch(error => {
-    console.error('Unable to sync database:', error);
-});
+module.exports = sequelize;

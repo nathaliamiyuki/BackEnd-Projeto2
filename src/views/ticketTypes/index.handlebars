@@ -1,0 +1,40 @@
+<div class="ticket-types-container">
+    {{#if user.isAdmin}}
+        <div class="admin-controls">
+            <h2>Gerenciar Tipos de Ingressos</h2>
+            <button class="btn btn-primary" onclick="showAddTicketTypeModal()">Adicionar Novo Tipo</button>
+        </div>
+    {{else}}
+        <h2>Tipos de Ingressos Disponíveis</h2>
+    {{/if}}
+
+    <div class="ticket-types-grid">
+        {{#each ticketTypes}}
+            <div class="ticket-type-card">
+                <h3>{{name}}</h3>
+                <p class="price">R$ {{price}}</p>
+                <p class="quantity">Disponíveis: {{quantity}}</p>
+                
+                {{#if ../user.isAdmin}}
+                    <div class="admin-actions">
+                        <button class="btn btn-secondary" onclick="editTicketType({{id}})">Editar</button>
+                        <button class="btn btn-danger" onclick="deleteTicketType({{id}})">Excluir</button>
+                    </div>
+                {{else}}
+                    <form action="/tickets/purchase" method="POST" class="purchase-form">
+                        <input type="hidden" name="ticketTypeId" value="{{id}}">
+                        <div class="form-group">
+                            <label for="quantity-{{id}}">Quantidade:</label>
+                            <input type="number" id="quantity-{{id}}" name="quantity" min="1" max="{{quantity}}" value="1">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Comprar</button>
+                    </form>
+                {{/if}}
+            </div>
+        {{/each}}
+    </div>
+</div>
+
+{{#if user.isAdmin}}
+    {{> ticketTypeModal}}
+{{/if}}
