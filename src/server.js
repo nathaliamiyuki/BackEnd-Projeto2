@@ -10,19 +10,7 @@ const sequelize = require('./config/database');
 const app = express();
 
 // Configuração do Handlebars
-app.engine('handlebars', engine({
-    helpers: {
-        formatDate: (date) => {
-            return new Date(date).toLocaleDateString('pt-BR');
-        },
-        formatPrice: (price) => {
-            return new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL'
-            }).format(price);
-        }
-    }
-}));
+app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -32,27 +20,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET || 'secret',
     resave: false,
-    saveUninitialized: false,
-    cookie: {
-        secure: process.env.NODE_ENV === 'production',
-        httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000 // 24 horas
-    }
+    saveUninitialized: false
 }));
 
 app.use(flash());
-
-// Middleware para variáveis globais
-app.use((req, res, next) => {
-    res.locals.user = req.session.user;
-    res.locals.messages = {
-        error: req.flash('error'),
-        success: req.flash('success')
-    };
-    next();
-});
 
 // Rotas
 app.use(routes);

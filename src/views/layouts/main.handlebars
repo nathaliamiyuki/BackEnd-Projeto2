@@ -10,15 +10,15 @@
     <nav class="navbar">
         <div class="container">
             <a href="/" class="navbar-brand">Venda de Ingressos</a>
-            {{#if user}}
-                <div class="nav-links">
+            <div class="nav-links">
+                {{#if user}}
                     <a href="/tickets">Meus Ingressos</a>
                     {{#if user.isAdmin}}
                         <a href="/ticket-types">Gerenciar Ingressos</a>
                     {{/if}}
                     <a href="/auth/logout">Sair</a>
-                </div>
-            {{/if}}
+                {{/if}}
+            </div>
         </div>
     </nav>
 
@@ -28,6 +28,7 @@
                 {{messages.error}}
             </div>
         {{/if}}
+        
         {{#if messages.success}}
             <div class="alert alert-success">
                 {{messages.success}}
@@ -36,7 +37,5 @@
 
         {{{body}}}
     </main>
-
-    <script src="/js/main.js"></script>
 </body>
 </html>

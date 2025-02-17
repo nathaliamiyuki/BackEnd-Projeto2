@@ -1,5 +1,10 @@
 <div class="auth-container">
     <h2>Registro</h2>
+
+    {{#if error}}
+        <div class="alert alert-danger">{{error}}</div>
+    {{/if}}
+
     <form action="/auth/register" method="POST">
         <div class="form-group">
             <label for="name">Nome:</label>
@@ -15,5 +20,6 @@
         </div>
         <button type="submit" class="btn btn-primary">Registrar</button>
     </form>
+
     <p>Já tem uma conta? <a href="/login">Faça login</a></p>
 </div>
