@@ -2,7 +2,6 @@ const User = require('./User');
 const TicketType = require('./TicketType');
 const Ticket = require('./Ticket');
 
-// Relationships
 User.hasMany(Ticket);
 Ticket.belongsTo(User);
 

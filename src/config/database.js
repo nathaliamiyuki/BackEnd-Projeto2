@@ -19,7 +19,6 @@ try {
 } catch (error) {
     console.error('Error removing corrupted database:', error);
 }
-
 const sequelize = new Sequelize({
     dialect: 'sqlite',
     storage: dbPath,
